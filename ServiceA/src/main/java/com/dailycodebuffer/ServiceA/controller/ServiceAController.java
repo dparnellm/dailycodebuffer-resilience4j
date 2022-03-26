@@ -1,6 +1,6 @@
 package com.dailycodebuffer.ServiceA.controller;
 
-import io.github.resilience4j.retry.annotation.Retry;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,8 @@ public class ServiceAController {
 
     @GetMapping
     //@CircuitBreaker(name = SERVICE_A, fallbackMethod = "serviceAFallback")
-    @Retry(name = SERVICE_A)
+    //@Retry(name = SERVICE_A)
+    @RateLimiter(name = SERVICE_A)
     public String serviceA() {
         String url = BASE_URL + "b";
         System.out.println("Retry method called " + count++ + " times at " + new Date());
